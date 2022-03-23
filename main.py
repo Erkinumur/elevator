@@ -8,7 +8,6 @@ from passenger import Passenger
 
 class Program:
     last_floor: int = random.randint(5, 20)
-    passengers_on_floor: int = random.randint(1, 10)
     step: int = 1
 
     def __init__(self):

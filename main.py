@@ -25,7 +25,7 @@ class Program:
         for floor in range(1, self.last_floor + 1):
             passengers = [
                 Passenger(floor, self.last_floor)
-                for i in range(self.passengers_on_floor)
+                for i in range(random.randint(0, 10))
             ]
 
             passengers_going_up = filter(
@@ -50,11 +50,7 @@ class Program:
     def next_step(self):
         passengers_to_exit = self.elevator.check_passengers_in_elevator()
 
-        passengers_to_enter = self.check_passengers_on_floor(
-            self.elevator.direction
-        )
-
-        if not passengers_to_enter and not self.elevator.passengers:
+        if not self.elevator.passengers:
             passengers_going_up = self.check_passengers_on_floor('UP')
             passengers_going_down = self.check_passengers_on_floor('DOWN')
 
@@ -64,6 +60,10 @@ class Program:
             else:
                 self.elevator.direction = 'DOWN'
                 passengers_to_enter = passengers_going_down
+        else:
+            passengers_to_enter = self.check_passengers_on_floor(
+                self.elevator.direction
+            )
 
         if len(passengers_to_enter) > self.elevator.available_space:
             passengers_to_enter = passengers_to_enter[
